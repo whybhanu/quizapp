@@ -1,22 +1,29 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState} from 'react'
+import axios from 'axios';
 
 const Quiz = () => {
   const[count, setCount] = useState(1);
-  const nextQues = () => {
-    if(count >= 9){
-      setCount(10);
-      return;
-    }else{
-      setCount(count+1);
+  const [data, setData] = useState([]);
+  useEffect (() => {
+    const fetchData = async () => {
+      try{
+        const res = await axios.get('https://opentdb.com/api.php?amount=30&category=11&difficulty=medium&type=multiple&encode=url3986');
+        setData(res.data.results);
+        console.log("Fetching Successful");
+      } catch(error){
+        console.log("Error fetching data" + error);
+      }
     }
+    fetchData();
+  }, []);
+  console.log(data);
+  const nextQues = () => {
+      setCount(count+1);
   }
   const  prevQues = ()=>{
-    if(count == 1){
-      return;
-    } else {
-      setCount(count-1);
-    }
+    setCount(count-1);
   }
+
   return (
     <>
       <div className='quizPage mt-5 w-3/5 border-4 border-rose-500 rounded-md  m-auto shadow-2xl'>
@@ -24,19 +31,19 @@ const Quiz = () => {
         <ul className='text-xl p-4 pl-5'>
           <li className='mb-4'>
             <input className='mr-3' type="radio" name="question1" id="option1" value="option1Value" />
-            <label for="option1">Rohan</label>
+            <label htmlFor="option1">Rohan</label>
           </li>
           <li className='mb-4'>
             <input className='mr-3' type="radio" name="question1" id="option2" value="option2Value" />
-            <label for="option2">Soham</label>
+            <label htmlFor="option2">Soham</label>
           </li>
           <li className='mb-4'>
             <input className='mr-3' type="radio" name="question1" id="option3" value="option3Value" />
-            <label for="option3">Mohan</label>
+            <label htmlFor="option3">Mohan</label>
           </li>
           <li className='mb-4'>
             <input className='mr-3' type="radio" name="question1" id="option4" value="option4Value" />
-            <label for="option4">Krishn</label>
+            <label htmlFor="option4">Krishn</label>
           </li>
         </ul>
         <div className='flex justify-between items-center h-16  mt-6'>

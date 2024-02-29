@@ -1,3 +1,10 @@
 .quizPage{
     height: 400px;
 }
+.quizType{
+    width: 50%;
+    margin:  7rem auto 2rem auto;
+    padding: 2rem;
+    /* background-color: black; */
+    color: white;
+}

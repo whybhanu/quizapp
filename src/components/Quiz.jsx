@@ -1,15 +1,18 @@
 import React, { useEffect, useState} from 'react'
 import axios from 'axios';
+import { useParams } from 'react-router';
 
-const Quiz = () => {
+const Quiz = ({category, difficulty, noOfQues}) => {
+  // const{category, difficulty, noOfQues} = useParams();
   const[count, setCount] = useState(1);
   const [data, setData] = useState([]);
   useEffect (() => {
     const fetchData = async () => {
       try{
-        const res = await axios.get('https://opentdb.com/api.php?amount=30&category=11&difficulty=medium&type=multiple&encode=url3986');
+        const res = await axios.get(`https://opentdb.com/api.php?amount=${noOfQues}&category=${category}&difficulty=${difficulty.toLowerCase()}&type=multiple&encode=url3986`);
         setData(res.data.results);
         console.log("Fetching Successful");
+        console.log(category);
       } catch(error){
         console.log("Error fetching data" + error);
       }
